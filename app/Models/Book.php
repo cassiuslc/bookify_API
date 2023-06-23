@@ -39,6 +39,6 @@ class Book extends Model
 
     public function genres()
     {
-        return $this->belongsTo(Genre::class, 'genres_id');
+        return $this->belongsTo(Genre::class);
     }
 }
