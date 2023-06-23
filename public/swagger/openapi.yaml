@@ -1,0 +1,276 @@
+openapi: 3.0.0
+paths:
+  /api/login:
+    post:
+      tags:
+        - Autenticação
+      summary: 'Obter um JWT usando as credenciais fornecidas'
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  example: example@example.com
+                password:
+                  type: string
+                  example: password123
+              type: object
+      responses:
+        '200':
+          description: 'Token JWT'
+          content:
+            application/json:
+              schema:
+                properties:
+                  access_token: { description: 'Token JWT', type: string }
+                  token_type: { description: 'Tipo de token', type: string }
+                  expires_in: { description: 'Tempo de expiração do token em segundos', type: integer }
+                type: object
+        '401':
+          description: 'Não autorizado'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error: { description: 'Mensagem de erro', type: string }
+                type: object
+  '/api/books/{id?}':
+    get:
+      tags:
+        - Livros
+      summary: 'Listar todos os Livros'
+      operationId: listBooks
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do livro (opcional)'
+          required: false
+          schema:
+            type: integer
+        -
+          name: page
+          in: query
+          description: 'Número da página para paginação dos resultados'
+          required: false
+          schema:
+            type: integer
+        -
+          name: limit
+          in: query
+          description: 'Número de itens por página para paginação dos resultados'
+          required: false
+          schema:
+            type: integer
+        -
+          name: sort
+          in: query
+          description: 'Ordenação dos resultados'
+          required: false
+          schema:
+            type: string
+        -
+          name: filter
+          in: query
+          description: 'Filtro para buscar por título, autor, etc.'
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+        '400':
+          description: 'Erro de solicitação inválida'
+        '404':
+          description: 'Livro não encontrado'
+  /api/books:
+    post:
+      tags:
+        - Livros
+      summary: 'Criar Livro'
+      operationId: createBook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                title:
+                  type: string
+                author_id:
+                  type: integer
+                genres_id:
+                  type: integer
+                edition:
+                  type: integer
+                year:
+                  type: integer
+                pages:
+                  type: integer
+                format:
+                  type: string
+                license:
+                  type: string
+                description:
+                  type: string
+                  nullable: true
+              type: object
+      responses:
+        '201':
+          description: 'Livro criado com sucesso'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          description: 'Erro de solicitação inválida'
+          content:
+            application/json:
+              schema:
+                properties:
+                  errors: { type: object }
+                type: object
+  '/api/books/{id}':
+    put:
+      tags:
+        - Livros
+      summary: 'Atualizar Livro'
+      operationId: updateBook
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do livro a ser atualizado'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                title:
+                  type: string
+                author_id:
+                  type: integer
+                genres_id:
+                  type: integer
+                edition:
+                  type: integer
+                year:
+                  type: integer
+                pages:
+                  type: integer
+                format:
+                  type: string
+                license:
+                  type: string
+                description:
+                  type: string
+                  nullable: true
+              type: object
+      responses:
+        '200':
+          description: 'Livro atualizado com sucesso'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          description: 'Erro de solicitação inválida'
+          content:
+            application/json:
+              schema:
+                properties:
+                  errors: { type: object }
+                type: object
+        '404':
+          description: 'Livro não encontrado'
+    delete:
+      tags:
+        - Livros
+      summary: 'Excluir Livro'
+      operationId: deleteBook
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID do livro a ser excluído'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Livro excluído com sucesso'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: { type: string }
+                type: object
+        '404':
+          description: 'Livro não encontrado'
+  /api/list/authors:
+    get:
+      tags:
+        - Autores
+      summary: 'Listar todos os autores'
+      operationId: getAllAuthors
+      responses:
+        '200':
+          description: 'Lista de todos os autores'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Author'
+  /api/list/genres:
+    get:
+      tags:
+        - Gêneros
+      summary: 'Listar todos os gêneros'
+      operationId: getAllGenres
+      responses:
+        '200':
+          description: 'Lista de todos os gêneros'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Genre'
+  /api/list/books:
+    get:
+      tags:
+        - Livros
+      summary: 'Listar todos os livros'
+      operationId: getAllBooks
+      responses:
+        '200':
+          description: 'Lista de todos os livros'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

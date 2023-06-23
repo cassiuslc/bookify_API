@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use OpenApi\Annotations as OA;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -19,11 +20,65 @@ class AuthController extends Controller
         $this->middleware('auth:api', ['except' => ['login']]);
     }
 
-    /**
-     * Get a JWT via given credentials.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
+/**
+ * @OA\Post(
+ *     path="/api/login",
+ *     operationId="login",
+ *     summary="Obter um JWT usando as credenciais fornecidas",
+ *     tags={"Autenticação"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(
+ *                 required={"email", "password"},
+ *                 @OA\Property(
+ *                     property="email",
+ *                     type="string",
+ *                     example="example@example.com"
+ *                 ),
+ *                 @OA\Property(
+ *                     property="password",
+ *                     type="string",
+ *                     example="password123"
+ *                 ),
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Token JWT",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="access_token",
+ *                 type="string",
+ *                 description="Token JWT"
+ *             ),
+ *             @OA\Property(
+ *                 property="token_type",
+ *                 type="string",
+ *                 description="Tipo de token"
+ *             ),
+ *             @OA\Property(
+ *                 property="expires_in",
+ *                 type="integer",
+ *                 description="Tempo de expiração do token em segundos"
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Não autorizado",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="error",
+ *                 type="string",
+ *                 description="Mensagem de erro"
+ *             )
+ *         )
+ *     )
+ * )
+ */
     public function login(Request $request)
     {
 
