@@ -1,79 +1,134 @@
 
-# Setup Docker Para Projetos Laravel (8, 9 ou 10)
-[Assine a Academy, e Seja VIP!](https://academy.especializati.com.br)
+# Bookify
 
-### Passo a passo
-Clone Repositório
-```sh
-git clone https://github.com/especializati/setup-docker-laravel.git
+O objetivo do projeto é fornecer uma API RESTful para permitir que os usuários realizem diversas operações relacionadas a livros, como cadastrar livros, buscar por título ou autor, adicionar avaliações e comentários. A API será construída utilizando o framework Laravel e terá como banco de dados o MySQL.
+
+
+
+
+## Rodando localmente
+
+Clone o projeto
+
+```bash
+  git clone https://github.com/cassiuslc/Bookify
 ```
 
-Clone os Arquivos do Laravel
-```sh
-git clone https://github.com/laravel/laravel.git app-laravel
-```
+Entre no diretório do projeto
 
-
-Copie os arquivos docker-compose.yml, Dockerfile e o diretório docker/ para o seu projeto
-```sh
-cp -rf setup-docker-laravel/* app-laravel/
-```
-```sh
-cd app-laravel/
-```
-
-
-Crie o Arquivo .env
-```sh
-cp .env.example .env
+```bash
+  cd bookify
 ```
 
 
-Atualize as variáveis de ambiente do arquivo .env
-```dosini
-APP_NAME="Especializa Ti"
-APP_URL=http://localhost:8989
+## Variáveis de Ambiente
 
-DB_CONNECTION=mysql
-DB_HOST=db
-DB_PORT=3306
-DB_DATABASE=laravel
-DB_USERNAME=root
-DB_PASSWORD=root
+Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
 
-CACHE_DRIVER=redis
-QUEUE_CONNECTION=redis
-SESSION_DRIVER=redis
+`token-jwt`
 
-REDIS_HOST=redis
-REDIS_PASSWORD=null
-REDIS_PORT=6379
+
+## Cabeçalho
+
+A API do Bookify utiliza autenticação baseada em JWT, sendo incluindo no header das solicitações, o token cadastrado no arquivo .env
+
+`Authorization: Bearer <token-jwt>`
+
+
+## Documentação da API
+
+#### Listar todos os livros
+Retorna todos os livros cadastrados no sistema.
+```https
+  GET /api/books
 ```
 
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `page` | `integer` | **Opcional**. Número da página para paginação dos resultados. |
+| `limit` | `integer` | **Opcional**. Número da página para paginação dos resultados. |
+| `sort` | `string` | **Opcional**. Ordenação dos resultados |
+| `filter` | `string` | **Opcional**. Filtro para buscar por título, autor, etc. |
 
-Suba os containers do projeto
-```sh
-docker-compose up -d
+#### Buscar livro
+Obter detalhes de um livro específico
+
+```https
+  GET /api/books/{id}
 ```
 
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id`      | `integer` | **Obrigatório**. ID do livro a ser buscado. |
 
-Acessar o container
-```sh
-docker-compose exec app bash
+
+
+#### Criar um novo livro
+
+Cria um novo livro com base nos dados.
+
+```https
+  POST /api/books
 ```
 
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `ainda a pensar`      | `ainda a pensar` | **Obrigatório**. ainda a pensar. |
 
-Instalar as dependências do projeto
-```sh
-composer install
+#### Atualizar os detalhes de um livro
+Atualiza os detalhes de um livro no ID.
+
+```https
+  PUT /api/books/{id}
 ```
 
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id`      | `integer` | **Obrigatório**. ID do livro a ser atualizado. |
+| `ainda a pensar`      | `ainda a pensar` | **Obrigatório**. ainda a pensar. |
 
-Gerar a key do projeto Laravel
-```sh
-php artisan key:generate
+#### Excluir um livro
+
+Exclui um livro específico com base no ID.
+
+```https
+DELETE /api/books/{id}
 ```
 
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id`      | `integer` | **Obrigatório**. ID do livro a ser excluido. |
 
-Acessar o projeto
-[http://localhost:8989](http://localhost:8989)
+#### Buscar livros por titulo
+
+buscar por titulo
+
+```https
+  GET /api/books/search?title={title}
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `title`      | `string` | **Obrigatório**. Título do livro a ser buscado. |
+
+#### Buscar livros por autor
+
+buscar pelo autor
+
+```https
+  GET /api/books/search?author={author}
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `string`      | `string` | **Obrigatório**. Autor do livro a ser buscado. |
+
+## Autores
+
+- [@cassiuslc](https://www.github.com/cassiuslc)
+
+
+## Links
+
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/cassiuslc)
+
