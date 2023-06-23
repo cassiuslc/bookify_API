@@ -8,7 +8,7 @@ O objetivo do projeto é fornecer uma API RESTful para permitir que os usuários
 
 ## Rodando localmente
 
-Clone o projeto
+Clone o projeto, presume que você já tem um ambiente laravel PHP com mysql.
 
 ```bash
   git clone https://github.com/cassiuslc/Bookify
@@ -20,12 +20,26 @@ Entre no diretório do projeto
   cd bookify
 ```
 
+composer
+
+```bash
+composer install
+php artisan key:generate
+php artisan jwt:secret
+php artisan migrate
+```
 
 ## Variáveis de Ambiente
 
 Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
 
-`token-jwt`
+`JWT_SECRET`
+`DB_CONNECTION`
+`DB_HOST`
+`DB_PORT`
+`DB_DATABAS`
+`DB_USERNAME`
+`DB_PASSWORD`
 
 
 ## Cabeçalho
@@ -36,6 +50,15 @@ A API do Bookify utiliza autenticação baseada em JWT, sendo incluindo no heade
 
 
 ## Documentação da API
+#### Autenticação
+Obtem o token de autenticação
+```https
+  POST /api/auth/login
+```
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `email` | `email` | **Obrigatorio**. Email. |
+| `password` | `password` | **Obrigatorio**. Senha. |
 
 #### Listar todos os livros
 Retorna todos os livros cadastrados no sistema.
@@ -45,6 +68,7 @@ Retorna todos os livros cadastrados no sistema.
 
 | Parâmetro   | Tipo       | Descrição                           |
 | :---------- | :--------- | :---------------------------------- |
+| `id` | `integer` | **Opcional**. Obtem livro baseado no resultado do id, ignorando outros filtros. |
 | `page` | `integer` | **Opcional**. Número da página para paginação dos resultados. |
 | `limit` | `integer` | **Opcional**. Número da página para paginação dos resultados. |
 | `sort` | `string` | **Opcional**. Ordenação dos resultados |
@@ -71,9 +95,18 @@ Cria um novo livro com base nos dados.
   POST /api/books
 ```
 
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `ainda a pensar`      | `ainda a pensar` | **Obrigatório**. ainda a pensar. |
+| Parâmetro    | Tipo    | Descrição                                     |
+| :----------- | :------ | :-------------------------------------------- |
+| `title`      | string  | **Obrigatório**. Título do livro.              |
+| `author_id`  | integer | **Obrigatório**. ID do autor do livro.         |
+| `genres_id`  | integer | **Obrigatório**. ID dos gêneros do livro.      |
+| `edition`    | integer | **Obrigatório**. Edição do livro.              |
+| `year`       | integer | **Obrigatório**. Ano de publicação do livro.   |
+| `pages`      | integer | **Obrigatório**. Número de páginas do livro.   |
+| `format`     | string  | **Obrigatório**. Formato do livro.             |
+| `license`    | string  | **Obrigatório**. Licença do livro.             |
+| `description`| string  | Descrição do livro (opcional).                 |
+
 
 #### Atualizar os detalhes de um livro
 Atualiza os detalhes de um livro no ID.
@@ -84,8 +117,17 @@ Atualiza os detalhes de um livro no ID.
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `id`      | `integer` | **Obrigatório**. ID do livro a ser atualizado. |
-| `ainda a pensar`      | `ainda a pensar` | **Obrigatório**. ainda a pensar. |
+| `id`      | integer | **Obrigatório**. ID do livro a ser atualizado. |
+| `title`      | string  | **Opcional**. Título do livro.              |
+| `author_id`  | integer | **Opcional**. ID do autor do livro.         |
+| `genres_id`  | integer | **Opcional**. ID dos gêneros do livro.      |
+| `edition`    | integer | **Opcional**. Edição do livro.              |
+| `year`       | integer | **Opcional**. Ano de publicação do livro.   |
+| `pages`      | integer | **Opcional**. Número de páginas do livro.   |
+| `format`     | string  | **Opcional**. Formato do livro.             |
+| `license`    | string  | **Opcional**. Licença do livro.             |
+| `description`| string  | **Opcional**. Descrição do livro.            |
+
 
 #### Excluir um livro
 
