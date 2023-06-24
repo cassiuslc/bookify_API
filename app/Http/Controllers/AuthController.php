@@ -33,7 +33,7 @@ class AuthController extends Controller
 
 /**
  * @OA\Post(
- *     path="/api/login",
+ *     path="/api/auth/login",
  *     operationId="login",
  *     summary="Obter um JWT usando as credenciais fornecidas",
  *     tags={"Autenticação"},
@@ -52,7 +52,7 @@ class AuthController extends Controller
  *                     property="password",
  *                     type="string",
  *                     example="password123"
- *                 ),
+ *                 )
  *             )
  *         )
  *     ),
