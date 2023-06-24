@@ -146,7 +146,7 @@ DELETE /api/books/{id}
 buscar por titulo
 
 ```https
-  GET /api/books/search?title={title}
+  GET /api/books?title={title}
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
@@ -158,7 +158,7 @@ buscar por titulo
 buscar pelo autor
 
 ```https
-  GET /api/books/search?author={author}
+  GET /api/books?author={author}
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
