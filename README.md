@@ -1,7 +1,7 @@
 
 # Bookify
 
-O objetivo do projeto é fornecer uma API RESTful para permitir que os usuários realizem diversas operações relacionadas a livros, como cadastrar livros, buscar por título ou autor, adicionar avaliações e comentários. A API será construída utilizando o framework Laravel e terá como banco de dados o MySQL.
+O objetivo do projeto é fornecer uma API RESTful para permitir que os usuários realizem diversas operações relacionadas a livros, como cadastrar livros, buscar por título ou autor. A API será construída utilizando o framework Laravel e terá como banco de dados o MySQL.
 
 
 
@@ -70,7 +70,7 @@ Retorna todos os livros cadastrados no sistema.
 | :---------- | :--------- | :---------------------------------- |
 | `id` | `integer` | **Opcional**. Obtem livro baseado no resultado do id, ignorando outros filtros. |
 | `page` | `integer` | **Opcional**. Número da página para paginação dos resultados. |
-| `limit` | `integer` | **Opcional**. Número da página para paginação dos resultados. |
+| `limit` | `integer` | **Opcional**. Número da limite dos resultados. |
 | `sort` | `string` | **Opcional**. Ordenação dos resultados |
 | `filter` | `string` | **Opcional**. Filtro para buscar por título, autor, etc. |
 
