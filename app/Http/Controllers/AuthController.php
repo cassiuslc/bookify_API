@@ -7,7 +7,18 @@ use OpenApi\Annotations as OA;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
-
+/**
+ * @OA\Info(
+ *     title="Bookify",
+ *     version="1.0.0",
+ *     description="O objetivo do projeto é fornecer uma API RESTful para permitir que os usuários realizem diversas operações relacionadas a livros"
+ * ),
+ * @OA\SecurityScheme(
+ *     type="http",
+ *     scheme="bearer",
+ *     securityScheme="bearerAuth"
+ * )
+ */
 class AuthController extends Controller
 {
     /**

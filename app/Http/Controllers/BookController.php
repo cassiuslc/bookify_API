@@ -9,21 +9,151 @@ use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Author;
 use App\Models\Genre;
-
 /**
  * @OA\Info(
- *     title="Bookify,
+ *     title="Bookify",
  *     version="1.0.0",
  *     description="O objetivo do projeto é fornecer uma API RESTful para permitir que os usuários realizem diversas operações relacionadas a livros"
  * )
  */
 /**
- * @OA\SecurityScheme(
- *     type="http",
- *     scheme="bearer",
- *     securityScheme="bearerAuth"
+ * @OA\Components(
+ *     @OA\Schema(
+ *         schema="Book",
+ *         required={"id", "title", "author_id", "genres_id", "edition", "year", "pages", "format", "license"},
+ *         @OA\Property(
+ *             property="id",
+ *             type="integer",
+ *             format="int64",
+ *             description="ID do livro"
+ *         ),
+ *         @OA\Property(
+ *             property="title",
+ *             type="string",
+ *             description="Título do livro"
+ *         ),
+ *         @OA\Property(
+ *             property="author_id",
+ *             type="integer",
+ *             format="int64",
+ *             description="ID do autor do livro"
+ *         ),
+ *         @OA\Property(
+ *             property="genres_id",
+ *             type="integer",
+ *             format="int64",
+ *             description="ID do gênero do livro"
+ *         ),
+ *         @OA\Property(
+ *             property="edition",
+ *             type="integer",
+ *             description="Edição do livro"
+ *         ),
+ *         @OA\Property(
+ *             property="year",
+ *             type="integer",
+ *             description="Ano de publicação do livro"
+ *         ),
+ *         @OA\Property(
+ *             property="pages",
+ *             type="integer",
+ *             description="Número de páginas do livro"
+ *         ),
+ *         @OA\Property(
+ *             property="format",
+ *             type="string",
+ *             description="Formato do livro"
+ *         ),
+ *         @OA\Property(
+ *             property="license",
+ *             type="string",
+ *             description="Licença do livro"
+ *         ),
+ *         @OA\Property(
+ *             property="description",
+ *             type="string",
+ *             description="Descrição do livro"
+ *         ),
+ *         @OA\Property(
+ *             property="created_at",
+ *             type="string",
+ *             format="date-time",
+ *             description="Data de criação do livro"
+ *         ),
+ *         @OA\Property(
+ *             property="updated_at",
+ *             type="string",
+ *             format="date-time",
+ *             description="Data de atualização do livro"
+ *         )
+ *     ),
+ *     @OA\Schema(
+ *         schema="Author",
+ *         required={"id", "name"},
+ *         @OA\Property(
+ *             property="id",
+ *             type="integer",
+ *             format="int64",
+ *             description="ID do autor"
+ *         ),
+ *         @OA\Property(
+ *             property="name",
+ *             type="string",
+ *             description="Nome do autor"
+ *         ),
+ *         @OA\Property(
+ *             property="biography",
+ *             type="string",
+ *             description="Biografia do autor"
+ *         ),
+ *         @OA\Property(
+ *             property="created_at",
+ *             type="string",
+ *             format="date-time",
+ *             description="Data de criação do autor"
+ *         ),
+ *         @OA\Property(
+ *             property="updated_at",
+ *             type="string",
+ *             format="date-time",
+ *             description="Data de atualização do autor"
+ *         )
+ *     ),
+ *     @OA\Schema(
+ *         schema="Genre",
+ *         required={"id", "name"},
+ *         @OA\Property(
+ *             property="id",
+ *             type="integer",
+ *             format="int64",
+ *             description="ID do Genero"
+ *         ),
+ *         @OA\Property(
+ *             property="name",
+ *             type="string",
+ *             description="Nome do Genero"
+ *         ),
+ *         @OA\Property(
+ *             property="description",
+ *             type="string",
+ *             description="Descricao do Genero"
+ *         ),
+ *         @OA\Property(
+ *             property="created_at",
+ *             type="string",
+ *             format="date-time",
+ *             description="Data de criação do genero"
+ *         ),
+ *         @OA\Property(
+ *             property="updated_at",
+ *             type="string",
+ *             format="date-time",
+ *             description="Data de atualização do genero"
+ *         )
+ *     )
  * )
  */
+
 class BookController extends Controller
 {
 
